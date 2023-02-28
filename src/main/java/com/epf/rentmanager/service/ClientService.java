@@ -80,5 +80,12 @@ public class ClientService {
 			throw new ServiceException();
 		}
 	}
-	
+
+	public int CountClient() {
+
+		return this.clientDao.CountClient();
+
+	}
+
+
 }

@@ -85,6 +85,12 @@ public class ReservationService {
 
     }
 
+    public int CountReservation() {
+
+        return this.reservationDao.CountReservation();
+
+    }
+
 
 }
 
