@@ -1,23 +1,19 @@
-package com.epf.rentmanager.servlet;
+/*package com.epf.rentmanager.servlet;
 
-import java.io.IOException;
+import com.epf.rentmanager.service.ClientService;
+import com.epf.rentmanager.service.ReservationService;
+import com.epf.rentmanager.service.VehicleService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.epf.rentmanager.exception.DaoException;
-import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.service.ClientService;
-import com.epf.rentmanager.service.VehicleService;
-import com.epf.rentmanager.service.ReservationService;
+import java.io.IOException;
 
 
-
-@WebServlet("/home")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/vehicles")
+public class VehicleCreateServlet extends HttpServlet {
 
 
 
@@ -33,13 +29,12 @@ public class HomeServlet extends HttpServlet {
 			request.setAttribute("nbClients",clientService.CountClient());
 			request.setAttribute("nbVehicles",vehicleService.CountVehicle());
 			request.setAttribute("nbReservations",reservationService.CountReservation());
-			request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
+			request.getRequestDispatcher("./WEB-INF/views/vehicles/create.jsp").forward(request, response);
 
 		} catch (ServletException e) {
 			e.printStackTrace();
 		}
 
-
 	}
 
-}
+}*/

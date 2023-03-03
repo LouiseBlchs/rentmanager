@@ -15,7 +15,7 @@
         <section class="content-header">
             <h1>
                 Voitures
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/cars/create">Ajouter</a>
+                <a class="btn btn-primary" href="${pageContext.request.contextPath}/vehicles/create">Ajouter</a>
             </h1>
         </section>
 
@@ -29,18 +29,18 @@
                                 <tr>
                                     <th style="width: 10px">#</th>
                                     <th>Marque</th>
-                                    <th>Modele</th>
+
                                     <th>Nombre de places</th>
                                     <!--<th>Propriétaire</th>-->
                                     <th>Action</th>
                                 </tr>
+                                 <c:forEach items="${vehicles}" var="vehicle">
                                 <tr>
 
-                                <c:forEach items="${vehicles}" var="vehicle">
-                                    <td>${vehicle.id}.</td>
+                                    <td>${vehicle.vehicle_id}</td>
                                     <td>${vehicle.constructeur}</td>
-                                    <td>${vehicle.modele}</td>
-                                    <td>${vehicle.seats}</td>
+
+                                    <td>${vehicle.nb_places}</td>
                                     <!--<td>John Doe</td>-->
                                     <td>
                                         <a class="btn btn-primary disabled" href="car-detail.html">
