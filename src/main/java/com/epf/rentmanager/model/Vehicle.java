@@ -5,13 +5,13 @@ import java.util.Objects;
 public class Vehicle {
 private long vehicle_id;
 private String constructeur;
-//private String modele;
+private String modele;
 int nb_places;
 
-    public Vehicle(long vehicle_id, String constructeur, int nb_places) {
+    public Vehicle(long vehicle_id, String constructeur,String modele, int nb_places) {
         this.vehicle_id = vehicle_id;
         this.constructeur = constructeur;
-        //this.modele = modele;
+        this.modele = modele;
         this.nb_places = nb_places;
     }
 
@@ -31,13 +31,13 @@ int nb_places;
         this.constructeur = constructeur;
     }
 
-   /* public String getModele() {
+    public String getModele() {
         return modele;
-    }*/
+    }
 
-   /* public void setModele(String modele) {
+   public void setModele(String modele) {
         this.modele = modele;
-    }*/
+    }
 
     public int getNb_places() {
         return nb_places;

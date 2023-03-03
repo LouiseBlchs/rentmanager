@@ -29,7 +29,7 @@
                                 <tr>
                                     <th style="width: 10px">#</th>
                                     <th>Marque</th>
-
+                                    <th>Modèle</th>
                                     <th>Nombre de places</th>
                                     <!--<th>Propriétaire</th>-->
                                     <th>Action</th>
@@ -39,7 +39,7 @@
 
                                     <td>${vehicle.vehicle_id}</td>
                                     <td>${vehicle.constructeur}</td>
-
+                                    <td>${vehicle.modele}</td>
                                     <td>${vehicle.nb_places}</td>
                                     <!--<td>John Doe</td>-->
                                     <td>

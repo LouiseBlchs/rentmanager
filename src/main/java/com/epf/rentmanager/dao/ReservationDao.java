@@ -37,8 +37,8 @@ public class ReservationDao {
 			Connection connection = ConnectionManager.getConnection();
 			PreparedStatement statement = connection.prepareStatement(CREATE_RESERVATION_QUERY,Statement.RETURN_GENERATED_KEYS);
 
-			statement.setLong(1,reservation.getClient_id());
-			statement.setLong(2,reservation.getVehicle_id());
+			statement.setLong(1,reservation.getClient());
+			statement.setLong(2,reservation.getVehicle());
 			statement.setDate(3, Date.valueOf(reservation.getDebut()));
 			statement.setDate(4, Date.valueOf(reservation.getFin()));
 			statement.execute();

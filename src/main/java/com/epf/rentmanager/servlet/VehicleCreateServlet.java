@@ -1,4 +1,4 @@
-/*package com.epf.rentmanager.servlet;
+package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
@@ -12,29 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet("/vehicles")
+@WebServlet("/vehicles/create")
 public class VehicleCreateServlet extends HttpServlet {
 
 
+    protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
 
-	private static final long serialVersionUID = 1L;
+        }
+        protected void doPost(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-			VehicleService vehicleService=VehicleService.getInstance();
-			ClientService clientService=ClientService.getInstance();
-			ReservationService reservationService=ReservationService.getInstance();
 
-			request.setAttribute("nbClients",clientService.CountClient());
-			request.setAttribute("nbVehicles",vehicleService.CountVehicle());
-			request.setAttribute("nbReservations",reservationService.CountReservation());
-			request.getRequestDispatcher("./WEB-INF/views/vehicles/create.jsp").forward(request, response);
 
-		} catch (ServletException e) {
-			e.printStackTrace();
-		}
 
-	}
+        }
 
-}*/
+
+
+
+}
