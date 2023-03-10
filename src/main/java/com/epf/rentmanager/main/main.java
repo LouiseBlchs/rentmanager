@@ -45,6 +45,8 @@ public class main {
             List<Client> lesclients = ClientService.getInstance().findAll();
             System.out.println(lesclients);*/
 
+
+
         }
         catch (ServiceException e){
             e.printStackTrace();

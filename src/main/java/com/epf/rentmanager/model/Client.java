@@ -20,8 +20,12 @@ public class Client {
         this.naissance = naissance;
     }
 
-    public Client() {
+    public Client(String nom, String prenom,  String email, LocalDate naissance) {
+        this.nom = nom;
+        this.prenom = prenom;
 
+        this.email = email;
+        this.naissance = naissance;
     }
 
     public String getNom() {

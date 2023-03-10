@@ -15,6 +15,13 @@ int nb_places;
         this.nb_places = nb_places;
     }
 
+    public Vehicle( String constructeur,String modele, int nb_places) {
+        this.constructeur = constructeur;
+        this.modele = modele;
+        this.nb_places = nb_places;
+    }
+
+
     public long getVehicle_id() {
         return vehicle_id;
     }

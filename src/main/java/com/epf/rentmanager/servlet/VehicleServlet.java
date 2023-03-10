@@ -1,6 +1,8 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.service.ClientService;
+import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 
 import javax.servlet.ServletException;
@@ -14,24 +16,23 @@ import java.io.IOException;
 @WebServlet("/vehicles")
 public class VehicleServlet extends HttpServlet {
 
-	private VehicleService vehicleService= VehicleService.getInstance();
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private VehicleService vehicleService=VehicleService.getInstance();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+        try {
 
-		try {
-
-			request.setAttribute("vehicles", this.vehicleService.findAll());
-		} catch (ServiceException e){
-			e.printStackTrace();
-		}
-
+            request.setAttribute("vehicles", this.vehicleService.findAll());
+        } catch (ServiceException e){
+            e.printStackTrace();
+        }
 
 
-		this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request,response);
-		
 
-	}
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request,response);
+
+    }
 
 }
+

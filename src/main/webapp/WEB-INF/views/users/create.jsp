@@ -25,7 +25,7 @@
                     <!-- Horizontal Form -->
                     <div class="box">
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" action="/users/create">
+                        <form class="form-horizontal" method="post" action="/rentmanager/users/create">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="last_name" class="col-sm-2 control-label">Nom</label>
@@ -41,6 +41,13 @@
                                         <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Prenom">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                                                    <label for="birth_date" class="col-sm-2 control-label">Date de naissance</label>
+
+                                                                    <div class="col-sm-10">
+                                                                        <input type="date" class="form-control" id="birth_date" name="birth_date" placeholder="DateNaissance">
+                                                                    </div>
+                                                                </div>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">Email</label>
 
