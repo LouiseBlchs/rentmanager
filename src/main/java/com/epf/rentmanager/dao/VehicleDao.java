@@ -1,25 +1,21 @@
 package com.epf.rentmanager.dao;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.epf.rentmanager.exception.DaoException;
-import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class VehicleDao {
 	
-	private static VehicleDao instance = null;
+
 	private VehicleDao() {}
-	public static VehicleDao getInstance() {
-		if(instance == null) {
-			instance = new VehicleDao();
-		}
-		return instance;
-	}
+
 	
 	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur,modele, nb_places) VALUES(?,?, ?);";
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
@@ -64,29 +60,31 @@ public class VehicleDao {
 		return 0;
 	}
 
-	public Vehicle findById(long id) throws DaoException {
-		Vehicle vehicle=null;
+	public Optional<Vehicle> findById(long id) throws DaoException {
+
 		try{
+			Vehicle vehicle;
 			Connection connection = ConnectionManager.getConnection();
 			PreparedStatement statement= connection.prepareStatement(FIND_VEHICLE_QUERY);
 			statement.setLong(1,id);
 			ResultSet rs= statement.executeQuery();
-
-			while(rs.next()) {
+			rs.next();
 				String constructeur = rs.getString("constructeur");
 				String modele=rs.getString("modèle");
 				int nb_places = rs.getInt("nb_places");
 
 				vehicle = new Vehicle(id, constructeur,modele, nb_places);
+				connection.close();
 
-			}
+				return Optional.of(vehicle);
+
 
 		}catch (SQLException e){
 			e.printStackTrace();
-			throw new DaoException();
-		}
 
-		return vehicle;
+		}
+		return Optional.empty() ;
+
 	}
 
 	public List<Vehicle> findAll() throws DaoException {

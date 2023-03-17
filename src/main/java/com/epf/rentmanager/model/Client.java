@@ -1,9 +1,12 @@
 package com.epf.rentmanager.model;
 
+import org.testng.annotations.Optional;
+
+import java.lang.annotation.Annotation;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Client {
+public class Client implements Optional {
 
     private String nom;
     private String prenom;
@@ -81,6 +84,11 @@ public class Client {
     }
 
     @Override
+    public Class<? extends Annotation> annotationType() {
+        return null;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -91,5 +99,10 @@ public class Client {
     @Override
     public int hashCode() {
         return Objects.hash(client_id,nom, prenom, email, naissance);
+    }
+
+    @Override
+    public String value() {
+        return null;
     }
 }

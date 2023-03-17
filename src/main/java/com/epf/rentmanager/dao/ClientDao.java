@@ -1,26 +1,31 @@
 package com.epf.rentmanager.dao;
 
+import org.springframework.context.annotation.Configuration;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 import com.epf.rentmanager.exception.DaoException;
-import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
-import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
+import org.springframework.stereotype.Repository;
 
+
+@Repository
 public class ClientDao {
 	
-	private static ClientDao instance = null;
+	//private static ClientDao instance = null;
 	private ClientDao() {}
-	public static ClientDao getInstance() {
+	/*public static ClientDao getInstance() {
 		if(instance == null) {
 			instance = new ClientDao();
 		}
 		return instance;
-	}
+	}*/
 	
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
@@ -68,30 +73,31 @@ public class ClientDao {
 
 	}
 
-	public Client findById(long id) throws DaoException {
-		Client client=null;
+	public Optional<Client> findById(long id) throws DaoException {
+
 		try {
+			Client client;
 			Connection connection = ConnectionManager.getConnection();
 			PreparedStatement statement = connection.prepareStatement(FIND_CLIENT_QUERY);
 			statement.setLong(1, id);
 			ResultSet rs = statement.executeQuery();
 
-while(rs.next()){
+             rs.next();
 			String nom = rs.getString("nom");
 			String prenom = rs.getString("prenom");
 			String email = rs.getString("email");
 			LocalDate naissance = rs.getDate("naissance").toLocalDate();
 
 			client = new Client(id, nom, prenom, email, naissance);
+			return Optional.of(client);
 
-		}
 
 		}catch (SQLException e){
 			e.printStackTrace();
-			throw new DaoException();
+
 		}
 
-		return client;
+		return Optional.empty();
 	}
 
 	public List<Client> findAll() throws DaoException {

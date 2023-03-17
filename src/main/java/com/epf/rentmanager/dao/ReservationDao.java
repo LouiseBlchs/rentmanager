@@ -13,17 +13,22 @@ import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ReservationDao {
 
-	private static ReservationDao instance = null;
-	private ReservationDao() {}
-	public static ReservationDao getInstance() {
-		if(instance == null) {
-			instance = new ReservationDao();
-		}
-		return instance;
+	//private static ReservationDao instance = null;
+
+
+	private ClientDao clientDao;
+	private VehicleDao vehicleDao;
+
+	private ReservationDao(ClientDao clientDao,VehicleDao vehicleDao) {
+		this.clientDao=clientDao;
+		this.vehicleDao=vehicleDao;
 	}
+
 	
 	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
@@ -82,25 +87,15 @@ public class ReservationDao {
 
 			while (rs.next()){
 				int id= rs.getInt("id");
-				Client client;
-				Vehicle vehicle;
+				int client_id= rs.getInt("client_id");
 				int vehicle_id= rs.getInt("vehicle_id");
-				try {
-					client= ClientService.instance.findById(clientId);
-				} catch (ServiceException e) {
-					throw new RuntimeException(e);
-				}
-				try {
-					vehicle= VehicleService.instance.findById(vehicle_id);
-				} catch (ServiceException e) {
-					throw new RuntimeException(e);
-				}
 				LocalDate debut=rs.getDate("début").toLocalDate();
 				LocalDate fin=rs.getDate("fin").toLocalDate();
 
-				reservations.add(new Reservation(id,client,vehicle,debut,fin));
+				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));
 
 			}
+			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
@@ -121,25 +116,16 @@ public class ReservationDao {
 
 			while (rs.next()){
 				int id= rs.getInt("id");
-				Client client;
-				Vehicle vehicle;
+
 				int client_id= rs.getInt("client_id");
-				try {
-					client= ClientService.instance.findById(client_id);
-				} catch (ServiceException e) {
-					throw new RuntimeException(e);
-				}
-				try {
-					vehicle= VehicleService.instance.findById(vehicleId);
-				} catch (ServiceException e) {
-					throw new RuntimeException(e);
-				}
+				int vehicle_id= rs.getInt("vehicle_id");
 				LocalDate debut=rs.getDate("début").toLocalDate();
 				LocalDate fin=rs.getDate("fin").toLocalDate();
 
-				reservations.add(new Reservation(id,client,vehicle,debut,fin));
+				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));
 
 			}
+			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
@@ -160,25 +146,13 @@ public class ReservationDao {
 				int id= rs.getInt("id");
 				int client_id= rs.getInt("client_id");
 				int vehicle_id= rs.getInt("vehicle_id");
-				 Client client;
-				Vehicle vehicle;
-				try {
-					client= ClientService.instance.findById(client_id);
-				} catch (ServiceException e) {
-					throw new RuntimeException(e);
-				}
-
-				try {
-					vehicle= VehicleService.instance.findById(vehicle_id);
-				} catch (ServiceException e) {
-					throw new RuntimeException(e);
-				}
 				LocalDate debut=rs.getDate("début").toLocalDate();
 				LocalDate fin=rs.getDate("fin").toLocalDate();
 
-				reservations.add(new Reservation(id,client,vehicle,debut,fin));
+				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));
 
 			}
+			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();

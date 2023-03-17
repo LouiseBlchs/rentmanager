@@ -4,6 +4,8 @@ import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 
 import com.epf.rentmanager.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 
 import javax.servlet.ServletException;
@@ -22,6 +24,16 @@ public class UserCreateServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+    @Autowired
+
+    ClientService clientService;
+
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
     protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
 
 
@@ -36,7 +48,7 @@ public class UserCreateServlet extends HttpServlet {
             String email=request.getParameter("email");
             LocalDate birthDate= LocalDate.parse(request.getParameter("birth_date"));
             Client client= new Client (nom,prenom,email,birthDate);
-            ClientService.getInstance().create(client);
+            clientService.create(client);
         } catch (ServiceException e){
             e.printStackTrace();
 
