@@ -1,4 +1,4 @@
-package com.epf.rentmanager.servlet;
+package com.epf.rentmanager.servlet.users;
 
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.service.ClientService;

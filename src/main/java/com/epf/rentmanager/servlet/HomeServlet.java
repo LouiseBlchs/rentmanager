@@ -7,9 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.epf.rentmanager.service.ClientService;
-import com.epf.rentmanager.service.VehicleService;
 import com.epf.rentmanager.service.ReservationService;
+import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -41,7 +42,6 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-
 
 			request.setAttribute("nbClients",this.clientService.CountClient());
 			request.setAttribute("nbVehicles",this.vehicleService.CountVehicle());

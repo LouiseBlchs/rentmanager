@@ -1,9 +1,9 @@
-package com.epf.rentmanager.servlet;
+package com.epf.rentmanager.servlet.users;
 
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
-
 import com.epf.rentmanager.service.ClientService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -35,7 +35,6 @@ public class UserCreateServlet extends HttpServlet {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
     protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
-
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request,response);
     }

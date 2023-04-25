@@ -1,22 +1,22 @@
 package com.epf.rentmanager.main;
 
-import com.epf.rentmanager.configuration.AppConfiguration;
-import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.dao.ClientDao;
+import com.epf.rentmanager.dao.ReservationDao;
+import com.epf.rentmanager.dao.VehicleDao;
+import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.model.Reservation;
-import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
+import com.epf.rentmanager.configuration.AppConfiguration;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws DaoException {
 
 //test find
         /* List<Client> clients = ClientService.getInstance().findAll();
@@ -46,6 +46,8 @@ public class main {
             ClientService.getInstance().delete(Unclient);
             List<Client> lesclients = ClientService.getInstance().findAll();
             System.out.println(lesclients);*/
+
+      // Reservation res=new Reservation(1,1,1, LocalDate.parse("2022-12-12"),LocalDate.parse("2022-02-01"));
 
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);

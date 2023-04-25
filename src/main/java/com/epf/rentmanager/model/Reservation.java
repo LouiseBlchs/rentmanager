@@ -19,6 +19,15 @@ public class Reservation {
         this.fin = fin;
     }
 
+    public Reservation(long client_id, long vehicle_id, LocalDate debut, LocalDate fin) {
+
+        this.client_id = client_id;
+        this.vehicle_id = vehicle_id;
+        this.debut = debut;
+        this.fin = fin;
+    }
+
+
     public long getReservation_id() {
         return reservation_id;
     }
@@ -27,15 +36,17 @@ public class Reservation {
         this.reservation_id = reservation_id;
     }
 
-    public long getClient() {
+    public long getClient_id() {
         return client_id;
     }
+
+
 
     public void setClient_id(long client_id) {
         this.client_id = client_id;
     }
 
-    public long getVehicle() {
+    public long getVehicle_id() {
         return vehicle_id;
     }
 

@@ -6,19 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.epf.rentmanager.exception.DaoException;
-import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
-import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
-import com.epf.rentmanager.service.ClientService;
-import com.epf.rentmanager.service.VehicleService;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ReservationDao {
 
-	//private static ReservationDao instance = null;
+
 
 
 	private ClientDao clientDao;
@@ -42,8 +37,8 @@ public class ReservationDao {
 			Connection connection = ConnectionManager.getConnection();
 			PreparedStatement statement = connection.prepareStatement(CREATE_RESERVATION_QUERY,Statement.RETURN_GENERATED_KEYS);
 
-			statement.setLong(1,reservation.getClient());
-			statement.setLong(2,reservation.getVehicle());
+			statement.setLong(1,reservation.getClient_id());
+			statement.setLong(2,reservation.getVehicle_id());
 			statement.setDate(3, Date.valueOf(reservation.getDebut()));
 			statement.setDate(4, Date.valueOf(reservation.getFin()));
 			statement.execute();
@@ -89,7 +84,7 @@ public class ReservationDao {
 				int id= rs.getInt("id");
 				int client_id= rs.getInt("client_id");
 				int vehicle_id= rs.getInt("vehicle_id");
-				LocalDate debut=rs.getDate("début").toLocalDate();
+				LocalDate debut=rs.getDate("debut").toLocalDate();
 				LocalDate fin=rs.getDate("fin").toLocalDate();
 
 				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));
@@ -119,7 +114,7 @@ public class ReservationDao {
 
 				int client_id= rs.getInt("client_id");
 				int vehicle_id= rs.getInt("vehicle_id");
-				LocalDate debut=rs.getDate("début").toLocalDate();
+				LocalDate debut=rs.getDate("debut").toLocalDate();
 				LocalDate fin=rs.getDate("fin").toLocalDate();
 
 				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));
@@ -146,7 +141,7 @@ public class ReservationDao {
 				int id= rs.getInt("id");
 				int client_id= rs.getInt("client_id");
 				int vehicle_id= rs.getInt("vehicle_id");
-				LocalDate debut=rs.getDate("début").toLocalDate();
+				LocalDate debut=rs.getDate("debut").toLocalDate();
 				LocalDate fin=rs.getDate("fin").toLocalDate();
 
 				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));

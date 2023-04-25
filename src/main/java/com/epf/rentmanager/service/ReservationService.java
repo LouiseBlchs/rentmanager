@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.dao.ReservationDao;
 import org.springframework.stereotype.Service;

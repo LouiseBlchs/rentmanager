@@ -28,8 +28,9 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th style="width: 10px">#</th>
+                                     <th>Client</th>
                                     <th>Voiture</th>
-                                    <th>Client</th>
+
                                     <th>Debut</th>
                                     <th>Fin</th>
                                     <th>Action</th>
@@ -37,10 +38,13 @@
                                 <c:forEach items="${reservations}" var="reservation">
                                 <tr>
                                     <td>${reservation.reservation_id}</td>
-                                    <td>${reservation.vehicle.vehicle_id}</td>
-                                    <td>${reservation.client.client_id}</td>
+                                    <td>${reservation.client_id}</td>
+                                    <td>${reservation.vehicle_id}</td>
                                     <td>${reservation.debut}</td>
-                                    <td>${reservation.fin}</td>
+
+                                   <td>${reservation.fin}</td>
+
+
                                     <td>
                                         <a class="btn btn-primary disabled" href="${pageContext.request.contextPath}/vehicles?id=1">
                                             <i class="fa fa-play"></i>
