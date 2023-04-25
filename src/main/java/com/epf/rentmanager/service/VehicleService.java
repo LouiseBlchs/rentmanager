@@ -45,7 +45,7 @@ public class VehicleService {
 	public Vehicle findById(long id) throws ServiceException {
 
 		try{
-			return vehicleDao.findById(id).get();}
+			return vehicleDao.findById(id);}
 		catch (DaoException e) {
 
 			throw new ServiceException();

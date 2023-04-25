@@ -80,6 +80,17 @@ public class ReservationService {
 
     }
 
+
+    public Reservation findResaById(long reservationId) throws ServiceException {
+
+        try{
+            return reservationDao.findResaById(reservationId);}
+        catch (DaoException e) {
+
+            throw new ServiceException();
+        }
+
+    }
     public List<Reservation> findResaByClientId(long clientId) throws ServiceException {
 
         try{

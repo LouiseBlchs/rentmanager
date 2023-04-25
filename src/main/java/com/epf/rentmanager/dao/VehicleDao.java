@@ -60,31 +60,29 @@ public class VehicleDao {
 		return 0;
 	}
 
-	public Optional<Vehicle> findById(long id) throws DaoException {
+	public Vehicle findById(long id) throws DaoException {
 
-		try{
-			Vehicle vehicle;
+		Vehicle vehicle = null;
+		try {
 			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement statement= connection.prepareStatement(FIND_VEHICLE_QUERY);
-			statement.setLong(1,id);
-			ResultSet rs= statement.executeQuery();
+			PreparedStatement statement = connection.prepareStatement(FIND_VEHICLE_QUERY);
+			statement.setLong(1, id);
+			ResultSet rs = statement.executeQuery();
 			rs.next();
-				String constructeur = rs.getString("constructeur");
-				String modele=rs.getString("modèle");
-				int nb_places = rs.getInt("nb_places");
+			String constructeur = rs.getString("constructeur");
+			String modele = rs.getString("modele");
+			int nb_places = rs.getInt("nb_places");
 
-				vehicle = new Vehicle(id, constructeur,modele, nb_places);
-				connection.close();
-
-				return Optional.of(vehicle);
+			vehicle = new Vehicle(id, constructeur, modele, nb_places);
+			connection.close();
 
 
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 
 		}
-		return Optional.empty() ;
 
+		return vehicle;
 	}
 
 	public List<Vehicle> findAll() throws DaoException {

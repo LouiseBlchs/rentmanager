@@ -46,6 +46,21 @@ public class ClientService {
 
 	}
 
+	public long edit(Client client) throws ServiceException {
+
+
+		try{
+			return clientDao.edit(client);}
+		catch (DaoException e) {
+
+			throw new ServiceException();
+		}
+
+
+	}
+
+
+
 	public Client findById(long id) throws ServiceException {
 
 		try{

@@ -29,6 +29,7 @@ public class ReservationDao {
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
+	private static final String FIND_RESERVATION_BY_ID_QUERY = "SELECT id, client_id, vehicle_id,debut, fin FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 	private static final String COUNT_RESERVATIONS_QUERY = "SELECT COUNT(id) AS count FROM Reservation;";
 	public long create(Reservation reservation) throws DaoException {
@@ -111,7 +112,6 @@ public class ReservationDao {
 
 			while (rs.next()){
 				int id= rs.getInt("id");
-
 				int client_id= rs.getInt("client_id");
 				int vehicle_id= rs.getInt("vehicle_id");
 				LocalDate debut=rs.getDate("debut").toLocalDate();
@@ -128,6 +128,34 @@ public class ReservationDao {
 		return reservations;
 	}
 
+	public Reservation findResaById(long ReservationId) throws DaoException {
+
+
+		Reservation reservation = null;
+		try {
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement statement = connection.prepareStatement(FIND_RESERVATION_BY_ID_QUERY);
+			statement.setLong(1, ReservationId);
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("id");
+
+				int client_id = rs.getInt("client_id");
+				int vehicle_id = rs.getInt("vehicle_id");
+				LocalDate debut = rs.getDate("debut").toLocalDate();
+				LocalDate fin = rs.getDate("fin").toLocalDate();
+
+				reservation = new Reservation(id, client_id, vehicle_id, debut, fin);
+
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException();
+		}
+		return reservation;
+	}
 	public List<Reservation> findAll() throws DaoException {
 
 		List<Reservation>reservations= new ArrayList<>();
@@ -176,6 +204,8 @@ public class ReservationDao {
 		return n;
 
 	}
+
+
 
 
 }

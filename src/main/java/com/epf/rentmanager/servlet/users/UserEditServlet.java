@@ -3,10 +3,8 @@ package com.epf.rentmanager.servlet.users;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.service.ClientService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +15,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 
-@WebServlet("/users/create")
-public class UserCreateServlet extends HttpServlet {
+@WebServlet("/users/edit")
+public class UserEditServlet extends HttpServlet {
 
 
 
@@ -35,9 +33,15 @@ public class UserCreateServlet extends HttpServlet {
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
     protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
+try {
+    long id = Long.parseLong(request.getParameter("id"));
+    request.setAttribute("client", this.clientService.findById(id));
+    this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request,response);
-    }
+}catch (ServiceException ex){
+    ex.printStackTrace();
+        }
+}
 
     protected void doPost(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
 
@@ -47,7 +51,7 @@ public class UserCreateServlet extends HttpServlet {
             String email=request.getParameter("email");
             LocalDate birthDate= LocalDate.parse(request.getParameter("birth_date"));
             Client client= new Client (nom,prenom,email,birthDate);
-            clientService.create(client);
+            clientService.edit(client);
         } catch (ServiceException e){
             e.printStackTrace();
 

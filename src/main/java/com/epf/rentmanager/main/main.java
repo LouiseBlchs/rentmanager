@@ -53,7 +53,7 @@ public class main {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         ClientService clientService = context.getBean(ClientService.class);
         VehicleService vehicleService = context.getBean(VehicleService.class);
-
+        ReservationService reservationService = context.getBean(ReservationService.class);
 
     }
 }
