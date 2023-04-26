@@ -29,7 +29,7 @@
                                 <tr>
                                     <th style="width: 10px">#</th>
                                     <th>Marque</th>
-                                    <th>Modèle</th>
+                                    <th>Modele</th>
                                     <th>Nombre de places</th>
                                     <!--<th>Propriétaire</th>-->
                                     <th>Action</th>

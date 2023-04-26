@@ -6,6 +6,7 @@ import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.dao.ReservationDao;
+import com.epf.rentmanager.model.Vehicle;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -102,6 +103,16 @@ public class ReservationService {
 
     }
 
+    public List<Vehicle> findVehiclesByClientId(long clientId) throws ServiceException {
+
+        try{
+            return reservationDao.findVehiclesByClientId(clientId);}
+        catch (DaoException e) {
+
+            throw new ServiceException();
+        }
+
+    }
     public int CountReservation() {
 
         return this.reservationDao.CountReservation();

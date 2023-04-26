@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.model.Reservation;
+import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
@@ -27,8 +28,10 @@ public class ReservationDao {
 	
 	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
-	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
-	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
+	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, client_id,vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
+	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
+	private static final String FIND_VEHICLES_BY_CLIENT_ID_QUERY = "SELECT Vehicle.id,constructeur,modele,nb_places FROM Reservation INNER JOIN Client ON Reservation.client_id = Client.id INNER JOIN Vehicle ON Vehicle.id = Reservation.vehicle_id WHERE Client.id=?;";
+
 	private static final String FIND_RESERVATION_BY_ID_QUERY = "SELECT id, client_id, vehicle_id,debut, fin FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 	private static final String COUNT_RESERVATIONS_QUERY = "SELECT COUNT(id) AS count FROM Reservation;";
@@ -126,6 +129,33 @@ public class ReservationDao {
 			throw new DaoException();
 		}
 		return reservations;
+	}
+
+
+	public List<Vehicle> findVehiclesByClientId(long clientId) throws DaoException {
+
+		List<Vehicle> vehicles= new ArrayList<>();
+		try{
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement statement= connection.prepareStatement(FIND_VEHICLES_BY_CLIENT_ID_QUERY);
+			statement.setLong(1,clientId);
+			ResultSet rs= statement.executeQuery();
+
+			while (rs.next()){
+				int id= rs.getInt("vehicle.id");
+				String constructeur = rs.getString("constructeur");
+				String modele = rs.getString("modele");
+				int nb_places = rs.getInt("nb_places");
+
+				vehicles.add(new Vehicle(id,constructeur,modele,nb_places));
+
+			}
+			connection.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+			throw new DaoException();
+		}
+		return vehicles;
 	}
 
 	public Reservation findResaById(long ReservationId) throws DaoException {
