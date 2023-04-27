@@ -20,6 +20,8 @@ public class VehicleService {
 	public long create(Vehicle vehicle) throws ServiceException {
 
 		try{
+
+
 			return this.vehicleDao.create(vehicle);}
 		catch (DaoException e) {
 
@@ -28,6 +30,18 @@ public class VehicleService {
 
 	}
 
+	public long edit(Vehicle vehicle) throws ServiceException {
+
+		try{
+
+
+			return this.vehicleDao.edit(vehicle);}
+		catch (DaoException e) {
+
+			throw new ServiceException();
+		}
+
+	}
 
 	public long delete(Vehicle vehicle) throws ServiceException {
 
@@ -45,6 +59,7 @@ public class VehicleService {
 	public Vehicle findById(long id) throws ServiceException {
 
 		try{
+
 			return vehicleDao.findById(id);}
 		catch (DaoException e) {
 

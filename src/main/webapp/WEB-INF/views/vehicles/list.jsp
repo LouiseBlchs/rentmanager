@@ -44,7 +44,7 @@
                                     <!--<td>John Doe</td>-->
                                     <td>
 
-                                        <a class="btn btn-success disabled" href="#">
+                                        <a class="btn btn-success" href="${pageContext.request.contextPath}/vehicles/edit?id=${vehicle.vehicle_id}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger" href="${pageContext.request.contextPath}/vehicles/delete?id=${vehicle.vehicle_id}">

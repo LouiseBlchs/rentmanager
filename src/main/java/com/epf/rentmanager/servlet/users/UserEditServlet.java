@@ -32,10 +32,14 @@ public class UserEditServlet extends HttpServlet {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
+
+
     protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
 try {
     long id = Long.parseLong(request.getParameter("id"));
+    request.setAttribute("id", id);
     request.setAttribute("client", this.clientService.findById(id));
+
     this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
 
 }catch (ServiceException ex){
@@ -50,7 +54,8 @@ try {
             String prenom= request.getParameter("first_name");
             String email=request.getParameter("email");
             LocalDate birthDate= LocalDate.parse(request.getParameter("birth_date"));
-            Client client= new Client (nom,prenom,email,birthDate);
+            Long id = Long.parseLong(request.getParameter("id"));
+            Client client= new Client (id,nom,prenom,email,birthDate);
             clientService.edit(client);
         } catch (ServiceException e){
             e.printStackTrace();

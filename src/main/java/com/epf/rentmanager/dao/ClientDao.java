@@ -16,21 +16,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ClientDao {
 	
-	//private static ClientDao instance = null;
+
 	private ClientDao() {}
-	/*public static ClientDao getInstance() {
-		if(instance == null) {
-			instance = new ClientDao();
-		}
-		return instance;
-	}*/
+
 	
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
 	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
 	private static final String COUNT_CLIENTS_QUERY = "SELECT COUNT(id) AS count FROM Client;";
-	private static final String EDIT_CLIENTS_QUERY = "UPDATE Client SET nom = ?, prenom = ?, email = ?, naissance = ? WHERE id = ?;";
+	private static final String EDIT_CLIENT_QUERY = "UPDATE Client SET nom = ?, prenom = ?, email = ?, naissance = ? WHERE id = ?;";
 
 	public long create(Client client) throws DaoException {
 
@@ -48,6 +43,8 @@ public class ClientDao {
 
 			if (resultSet.next()) {int id = resultSet.getInt(1); return id;}
 
+			statement.close();
+			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
@@ -62,7 +59,8 @@ public class ClientDao {
 			statement.setLong(1, client.getClient_id());
 			statement.executeUpdate();
 
-
+			statement.close();
+			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
@@ -88,6 +86,8 @@ public class ClientDao {
 			LocalDate naissance = rs.getDate("naissance").toLocalDate();
 
 			client = new Client(id, nom, prenom, email, naissance);
+			statement.close();
+			connection.close();
 			return Optional.of(client);
 
 
@@ -119,6 +119,8 @@ public class ClientDao {
 
 
 			}
+			statement.close();
+			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
@@ -155,16 +157,16 @@ public class ClientDao {
 
 		try {
 			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement statement = connection.prepareStatement(EDIT_CLIENTS_QUERY);
+			PreparedStatement statement = connection.prepareStatement(EDIT_CLIENT_QUERY);
 			statement.setString(1,client.getNom());
 			statement.setString(2,client.getPrenom());
 			statement.setString(3,client.getEmail());
-			statement.setString(4,client.getNaissance().toString());
+			statement.setDate(4, Date.valueOf(client.getNaissance()));
 			statement.setLong(5, client.getClient_id());
 			statement.executeUpdate();
 
 
-
+			statement.close();
 			connection.close();
 
 

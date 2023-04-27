@@ -24,15 +24,6 @@ public class ReservationService {
     private ReservationService(ReservationDao reservationDao) {
         this.reservationDao = reservationDao;
     }
-    /*public static ReservationService getInstance() {
-        if (instance == null) {
-            instance = new ReservationService();
-        }
-
-        return instance;
-    }*/
-
-
 
 
     public long create(Reservation reservation) throws ServiceException {
@@ -46,7 +37,16 @@ public class ReservationService {
         }
     }
 
+    public long edit(Reservation reservation) throws ServiceException {
 
+
+        try{
+            return reservationDao.edit(reservation);}
+        catch (DaoException e) {
+
+            throw new ServiceException();
+        }
+    }
     public long delete(Reservation reservation) throws ServiceException {
 
 

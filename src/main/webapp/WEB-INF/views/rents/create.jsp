@@ -70,6 +70,7 @@
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
+                             <p class="profile-username text-center">${erreur}</p>
                                 <button type="submit" class="btn btn-info pull-right">Ajouter</button>
                             </div>
                             <!-- /.box-footer -->

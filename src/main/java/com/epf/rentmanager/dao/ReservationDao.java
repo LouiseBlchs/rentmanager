@@ -30,11 +30,11 @@ public class ReservationDao {
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, client_id,vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
-	private static final String FIND_VEHICLES_BY_CLIENT_ID_QUERY = "SELECT Vehicle.id,constructeur,modele,nb_places FROM Reservation INNER JOIN Client ON Reservation.client_id = Client.id INNER JOIN Vehicle ON Vehicle.id = Reservation.vehicle_id WHERE Client.id=?;";
-
+	private static final String FIND_VEHICLES_BY_CLIENT_ID_QUERY = "SELECT DISTINCT Vehicle.id,constructeur,modele,nb_places FROM Reservation INNER JOIN Client ON Reservation.client_id = Client.id INNER JOIN Vehicle ON Vehicle.id = Reservation.vehicle_id WHERE Client.id=?;";
 	private static final String FIND_RESERVATION_BY_ID_QUERY = "SELECT id, client_id, vehicle_id,debut, fin FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 	private static final String COUNT_RESERVATIONS_QUERY = "SELECT COUNT(id) AS count FROM Reservation;";
+	private static final String EDIT_RESERVATION_QUERY = "UPDATE Reservation SET client_id = ?, vehicle_id = ?, debut = ?, fin = ? WHERE id = ?;";
 	public long create(Reservation reservation) throws DaoException {
 
 		try {
@@ -50,7 +50,8 @@ public class ReservationDao {
 			ResultSet resultSet = statement.getGeneratedKeys();
 
 			if (resultSet.next()) {int id = resultSet.getInt(1); return id;}
-
+			statement.close();
+			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
 			throw new DaoException();
@@ -64,7 +65,8 @@ public class ReservationDao {
 			PreparedStatement statement = connection.prepareStatement(DELETE_RESERVATION_QUERY);
 			statement.setLong(1, reservation.getReservation_id());
 			statement.executeUpdate();
-
+			statement.close();
+			connection.close();
 
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -94,6 +96,7 @@ public class ReservationDao {
 				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));
 
 			}
+			statement.close();
 			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -123,6 +126,7 @@ public class ReservationDao {
 				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));
 
 			}
+			statement.close();
 			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -150,6 +154,7 @@ public class ReservationDao {
 				vehicles.add(new Vehicle(id,constructeur,modele,nb_places));
 
 			}
+			statement.close();
 			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -179,6 +184,7 @@ public class ReservationDao {
 				reservation = new Reservation(id, client_id, vehicle_id, debut, fin);
 
 			}
+			statement.close();
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -205,6 +211,7 @@ public class ReservationDao {
 				reservations.add(new Reservation(id,client_id,vehicle_id,debut,fin));
 
 			}
+			statement.close();
 			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -224,7 +231,7 @@ public class ReservationDao {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			n = rs.getInt("count");
-
+			statement.close();
 			connection.close();
 
 		} catch (SQLException e) {
@@ -235,7 +242,27 @@ public class ReservationDao {
 
 	}
 
+	public long edit(Reservation reservation) throws DaoException {
 
+		try {
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement statement = connection.prepareStatement(EDIT_RESERVATION_QUERY);
+
+			statement.setLong(1,reservation.getClient_id());
+			statement.setLong(2,reservation.getVehicle_id());
+			statement.setDate(3, Date.valueOf(reservation.getDebut()));
+			statement.setDate(4, Date.valueOf(reservation.getFin()));
+			statement.setLong(5,reservation.getReservation_id());
+			statement.executeUpdate();
+			statement.close();
+			connection.close();
+
+		}catch (SQLException e){
+			e.printStackTrace();
+			throw new DaoException();
+		}
+		return 0;
+	}
 
 
 }

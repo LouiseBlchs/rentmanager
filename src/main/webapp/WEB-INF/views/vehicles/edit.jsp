@@ -14,7 +14,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Utilisateurs
+                Voiture ${id}
             </h1>
         </section>
 
@@ -25,41 +25,41 @@
                     <!-- Horizontal Form -->
                     <div class="box">
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" action="/rentmanager/users/create">
+                        <!-- Le  type de methode http qui sera appel� lors de action submit du formulaire -->
+                        <!-- est d�crit an l'attribut "method" de la balise forme -->
+                        <!-- action indique � quel "cible" sera envoyr la requ�te, ici notre Servlet qui sera bind sur -->
+                        <!-- /vehicles/create -->
+                        <form class="form-horizontal" method="post" action="/rentmanager/vehicles/edit?id=${id}">
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="last_name" class="col-sm-2 control-label">Nom</label>
+                                    <label for="manufacturer" class="col-sm-2 control-label">Marque</label>
 
+									<!-- Pour r�up�rer la valeur rentr�e dans un champ input de cette jsp au niveau de votre servlet -->
+									<!-- vous devez passer par les methodes getParameter de l'objet request, est sp�cifiant la valeur -->
+									<!-- de l'attribut "name" de l'input -->
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nom">
+                                        <input type="text" class="form-control" id="manufacturer" name="manufacturer" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="first_name" class="col-sm-2 control-label">Prenom</label>
+                                    <label for="modele" class="col-sm-2 control-label">Modele</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Prenom">
+                                        <input type="text" class="form-control" id="modele" name="modele" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                                                    <label for="birth_date" class="col-sm-2 control-label">Date de naissance</label>
-
-                                                                    <div class="col-sm-10">
-                                                                        <input type="date" class="form-control" id="birth_date" name="birth_date" placeholder="DateNaissance">
-                                                                    </div>
-                                                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="col-sm-2 control-label">Email</label>
+                                    <label for="seats" class="col-sm-2 control-label">Nombre de places</label>
 
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                        <input type="text" class="form-control" id="seats" name="seats" required>
                                     </div>
                                 </div>
+
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
-                            <p class="profile-username text-center">${erreur}</p>
-                                <button type="submit" class="btn btn-info pull-right">Ajouter</button>
+                                <button type="submit" class="btn btn-info pull-right">Editer</button>
                             </div>
                             <!-- /.box-footer -->
                         </form>

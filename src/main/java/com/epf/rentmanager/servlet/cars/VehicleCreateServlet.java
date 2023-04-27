@@ -1,8 +1,11 @@
 package com.epf.rentmanager.servlet.cars;
 
+import com.epf.rentmanager.exception.CharacteristicsException;
+import com.epf.rentmanager.exception.SeatsException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.VehicleService;
+import com.epf.rentmanager.checker.VehicleCheckers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -41,14 +44,27 @@ try {
     String brand = request.getParameter("manufacturer");
     String modele = request.getParameter("modele");
     int nb_places=Integer.parseInt(request.getParameter("seats"));
-Vehicle vehicle= new Vehicle (brand, modele, nb_places);
+    Vehicle vehicle= new Vehicle (brand, modele, nb_places);
+    if (VehicleCheckers.CharacteristicsCheck(vehicle)){
+        throw new CharacteristicsException("Le constructeur et le modèle doivent être indiqués.");}
+    if (VehicleCheckers.SeatsCheck(vehicle)){
+        throw new SeatsException("Le nombre de places doit être compris entre 2 et 9.");
+    }
+
 vehicleService.create(vehicle);
+    response.sendRedirect("/rentmanager/vehicles");
 } catch (ServiceException e){
                 e.printStackTrace();
 
             }
-            this.doGet(request,response);
-
+catch (CharacteristicsException e){
+    request.setAttribute("erreur", "Le constructeur et le modèle doivent être indiqués.");
+    this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+}
+catch (SeatsException e){
+    request.setAttribute("erreur", "Le nombre de places doit être compris entre 2 et 9.");
+    this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+}
         }
 
 

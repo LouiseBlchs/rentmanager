@@ -1,5 +1,6 @@
 package com.epf.rentmanager.servlet.rents;
 
+import com.epf.rentmanager.checker.ReservationCheckers;
 import com.epf.rentmanager.exception.AvailableException;
 import com.epf.rentmanager.exception.SameUserException;
 import com.epf.rentmanager.exception.ServiceException;
@@ -7,7 +8,6 @@ import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
-import com.epf.rentmanager.checker.ReservationCheckers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 
-@WebServlet("/rents/create")
-public class RentCreateServlet extends HttpServlet {
+@WebServlet("/rents/edit")
+public class RentEditServlet extends HttpServlet {
 
 
 
@@ -44,9 +44,12 @@ public class RentCreateServlet extends HttpServlet {
     }
     protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
        try {
+           long id = Long.parseLong(request.getParameter("id"));
+           request.setAttribute("id", id);
+           request.setAttribute("reservation", this.reservationService.findResaById(id));
         request.setAttribute("listUsers",this.clientService.findAll());
         request.setAttribute("listVehicles",this.vehicleService.findAll());
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request,response);}
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/edit.jsp").forward(request,response);}
        catch (ServiceException ex){
            ex.printStackTrace();
        }
@@ -60,15 +63,18 @@ public class RentCreateServlet extends HttpServlet {
             long vehicle_id= Long.parseLong(request.getParameter("car"));
             LocalDate debut= LocalDate.parse(request.getParameter("begin"));
             LocalDate fin= LocalDate.parse(request.getParameter("end"));
-            Reservation reservation= new Reservation(client_id,vehicle_id,debut,fin);
-           if (ReservationCheckers.AvailableCheck(reservation, reservationService.findResaByVehicleId(reservation.getVehicle_id()))){
+            Long id = Long.parseLong(request.getParameter("id"));
+
+            Reservation reservation= new Reservation(id,client_id,vehicle_id,debut,fin);
+
+           if (ReservationCheckers.AvailableCheck(reservation, reservationService.findResaByVehicleId(id))){
                throw new AvailableException("Une voiture ne peut pas être réservée deux fois le même jour.");
            }
             if (ReservationCheckers.SameUserCheck(reservation)){
                 throw new SameUserException("Un utilisateur ne peut pas réserver une voiture plus de 7 jours de suite.");
             }
-            reservationService.create(reservation);
-            this.doGet(request,response);
+            reservationService.edit(reservation);
+
         } catch (ServiceException e){
             e.printStackTrace();
 
@@ -83,7 +89,7 @@ public class RentCreateServlet extends HttpServlet {
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
 
         }
-
+        response.sendRedirect("/rentmanager/rents");
     }
 
 
