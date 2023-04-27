@@ -20,10 +20,27 @@ public class UsersTest {
     @Test
     void isLegal_should_return_false_when_age_is_under_18() {
         // Given
-        Client illegaUser = new Client("John", "Doe", "john.doe@ensta.fr",LocalDate.of(2005, 1, 8));
+        Client illegalUser = new Client("John", "Doe", "john.doe@ensta.fr",LocalDate.of(2005, 1, 8));
 
         // Then
-        assertFalse(Users.isLegal(illegaUser));
+        assertFalse(Users.isLegal(illegalUser));
+    }
+
+    @Test
+    void isLegal_should_return_false_when_name_is_under_3_char() {
+        // Given
+        Client illegalUser = new Client("Jo", "Do", "john.doe@ensta.fr",LocalDate.of(2000, 1, 8));
+
+        // Then
+        assertFalse(Users.isValidName(illegalUser));
+    }
+    @Test
+    void isLegal_should_return_true_when_name_is_over_3_char() {
+        // Given
+        Client legalUser = new Client("John", "Doe", "john.doe@ensta.fr",LocalDate.of(2000, 1, 8));
+
+        // Then
+        assertTrue(Users.isValidName(legalUser));
     }
 }
 
