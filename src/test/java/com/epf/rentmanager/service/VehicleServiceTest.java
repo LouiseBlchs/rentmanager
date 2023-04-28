@@ -1,36 +1,36 @@
 package com.epf.rentmanager.service;
 
 import com.epf.rentmanager.dao.ClientDao;
+import com.epf.rentmanager.dao.VehicleDao;
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import com.epf.rentmanager.model.Client;
-import org.junit.jupiter.api.BeforeEach;
+import com.epf.rentmanager.model.Vehicle;
 import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceTest {
+public class VehicleServiceTest {
     @InjectMocks
-    private ClientService userService;
+    private VehicleService vehicleService;
 
     @Mock
-    private ClientDao userDao;
+    private VehicleDao vehicleDao;
     @Mock
-    private Client client;
+    private Vehicle vehicle;
     @Test
     void findAll_should_fail_when_dao_throws_exception() throws DaoException {
         // When
-        when(this.userDao.findAll()).thenThrow(DaoException.class);
+        when(this.vehicleDao.findAll()).thenThrow(DaoException.class);
 
         // Then
-        assertThrows(ServiceException.class, () -> userService.findAll());
+        assertThrows(ServiceException.class, () -> vehicleService.findAll());
 
     }
 
@@ -38,21 +38,21 @@ public class UserServiceTest {
     @Test
     void findById_should_fail_when_dao_throws_exception() throws DaoException {
         // When
-        when(this.userDao.findById(client.getClient_id())).thenThrow(DaoException.class);
+        when(this.vehicleDao.findById(vehicle.getVehicle_id())).thenThrow(DaoException.class);
 
         // Then
-        assertThrows(ServiceException.class, () -> userService.findById(client.getClient_id()));
+        assertThrows(ServiceException.class, () -> vehicleService.findById(vehicle.getVehicle_id()));
 
     }
-
 
     @Test
     void create_should_fail_when_dao_throws_exception() throws DaoException {
         // When
-        when(this.userDao.create(client)).thenThrow(DaoException.class);
+        when(this.vehicleDao.create(vehicle)).thenThrow(DaoException.class);
 
         // Then
-        assertThrows(ServiceException.class, () -> userService.create(client));
+        assertThrows(ServiceException.class, () -> vehicleService.create(vehicle));
 
     }
+
 }
