@@ -9,6 +9,7 @@ Java project 4A
 - Mise à jour client, véhicule, réservation
 - Page détails client avec nombre réservations et véhicules, liste réservations et véhicules
 - Projet sous Spring 
+- Mise en place des tests 
 
 ## Contraintes réalisées
 
