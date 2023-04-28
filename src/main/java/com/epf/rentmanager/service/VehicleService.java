@@ -11,78 +11,78 @@ import org.springframework.stereotype.Service;
 @Service
 public class VehicleService {
 
-	private VehicleDao vehicleDao;
-	
-	private VehicleService(VehicleDao vehicleDao) {
-		this.vehicleDao = vehicleDao;
-	}
+    private VehicleDao vehicleDao;
 
-	public long create(Vehicle vehicle) throws ServiceException {
+    private VehicleService(VehicleDao vehicleDao) {
+        this.vehicleDao = vehicleDao;
+    }
 
-		try{
+    public long create(Vehicle vehicle) throws ServiceException {
 
-
-			return this.vehicleDao.create(vehicle);}
-		catch (DaoException e) {
-
-			throw new ServiceException();
-		}
-
-	}
-
-	public long edit(Vehicle vehicle) throws ServiceException {
-
-		try{
+        try {
 
 
-			return this.vehicleDao.edit(vehicle);}
-		catch (DaoException e) {
+            return this.vehicleDao.create(vehicle);
+        } catch (DaoException e) {
 
-			throw new ServiceException();
-		}
+            throw new ServiceException();
+        }
 
-	}
+    }
 
-	public long delete(Vehicle vehicle) throws ServiceException {
+    public long edit(Vehicle vehicle) throws ServiceException {
 
-
-		try{
-			return vehicleDao.delete(vehicle);}
-		catch (DaoException e) {
-
-			throw new ServiceException();
-		}
+        try {
 
 
-	}
+            return this.vehicleDao.edit(vehicle);
+        } catch (DaoException e) {
 
-	public Vehicle findById(long id) throws ServiceException {
+            throw new ServiceException();
+        }
 
-		try{
+    }
 
-			return vehicleDao.findById(id);}
-		catch (DaoException e) {
+    public long delete(Vehicle vehicle) throws ServiceException {
 
-			throw new ServiceException();
-		}
 
-	}
+        try {
+            return vehicleDao.delete(vehicle);
+        } catch (DaoException e) {
 
-	public List<Vehicle> findAll() throws ServiceException {
+            throw new ServiceException();
+        }
 
-		try{
-			return vehicleDao.findAll();}
-		catch (DaoException e) {
 
-			throw new ServiceException();
-		}
+    }
 
-	}
+    public Vehicle findById(long id) throws ServiceException {
 
-	public int CountVehicle() {
+        try {
 
-		return vehicleDao.CountVehicle();
+            return vehicleDao.findById(id);
+        } catch (DaoException e) {
 
-	}
-	
+            throw new ServiceException();
+        }
+
+    }
+
+    public List<Vehicle> findAll() throws ServiceException {
+
+        try {
+            return vehicleDao.findAll();
+        } catch (DaoException e) {
+
+            throw new ServiceException();
+        }
+
+    }
+
+    public int CountVehicle() {
+
+        return vehicleDao.CountVehicle();
+
+    }
+
 }

@@ -16,33 +16,32 @@ import java.io.IOException;
 @WebServlet("/rents")
 public class RentServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Autowired
+    @Autowired
 
-	ReservationService reservationService;
+    ReservationService reservationService;
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-	}
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
 
-			request.setAttribute("reservations", this.reservationService.findAll());
-		} catch (ServiceException e){
-			e.printStackTrace();
-		}
+            request.setAttribute("reservations", this.reservationService.findAll());
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
 
 
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request, response);
 
-		this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request,response);
+    }
 
-	}
-
-	}
+}
 
 

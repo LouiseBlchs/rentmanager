@@ -24,8 +24,7 @@ import java.time.LocalDate;
 public class RentCreateServlet extends HttpServlet {
 
 
-
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Autowired
 
@@ -42,43 +41,42 @@ public class RentCreateServlet extends HttpServlet {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
-    protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
-       try {
-        request.setAttribute("listUsers",this.clientService.findAll());
-        request.setAttribute("listVehicles",this.vehicleService.findAll());
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request,response);}
-       catch (ServiceException ex){
-           ex.printStackTrace();
-       }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            request.setAttribute("listUsers", this.clientService.findAll());
+            request.setAttribute("listVehicles", this.vehicleService.findAll());
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+        } catch (ServiceException ex) {
+            ex.printStackTrace();
+        }
     }
 
-    protected void doPost(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
 
-            long client_id= Long.parseLong(request.getParameter("client"));
-            long vehicle_id= Long.parseLong(request.getParameter("car"));
-            LocalDate debut= LocalDate.parse(request.getParameter("begin"));
-            LocalDate fin= LocalDate.parse(request.getParameter("end"));
-            Reservation reservation= new Reservation(client_id,vehicle_id,debut,fin);
-           if (ReservationCheckers.AvailableCheck(reservation, reservationService.findResaByVehicleId(vehicle_id))){
-               throw new AvailableException("Une voiture ne peut pas être réservée deux fois le même jour.");
-           }
-            if (ReservationCheckers.SameUserCheck(reservation)){
+            long client_id = Long.parseLong(request.getParameter("client"));
+            long vehicle_id = Long.parseLong(request.getParameter("car"));
+            LocalDate debut = LocalDate.parse(request.getParameter("begin"));
+            LocalDate fin = LocalDate.parse(request.getParameter("end"));
+            Reservation reservation = new Reservation(client_id, vehicle_id, debut, fin);
+            if (ReservationCheckers.AvailableCheck(reservation, reservationService.findResaByVehicleId(vehicle_id))) {
+                throw new AvailableException("Une voiture ne peut pas être réservée deux fois le même jour.");
+            }
+            if (ReservationCheckers.SameUserCheck(reservation)) {
                 throw new SameUserException("Un utilisateur ne peut pas réserver une voiture plus de 7 jours de suite.");
             }
             reservationService.create(reservation);
-            this.doGet(request,response);
-        } catch (ServiceException e){
+            this.doGet(request, response);
+        } catch (ServiceException e) {
             e.printStackTrace();
 
-        }
-        catch (AvailableException e) {
+        } catch (AvailableException e) {
             request.setAttribute("erreur", "Une voiture ne peut pas être réservée deux fois le même jour.");
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
 
-        }
-        catch (SameUserException e) {
+        } catch (SameUserException e) {
             request.setAttribute("erreur", "Un utilisateur ne peut pas réserver une voiture plus de 7 jours de suite.");
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
 

@@ -16,33 +16,32 @@ import java.io.IOException;
 @WebServlet("/users")
 public class UserServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Autowired
+    @Autowired
 
-	ClientService clientService;
-
-
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		try {
-
-			request.setAttribute("clients", this.clientService.findAll());
-		} catch (ServiceException e){
-			e.printStackTrace();
-		}
+    ClientService clientService;
 
 
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
-		this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/list.jsp").forward(request,response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-	}
+        try {
+
+            request.setAttribute("clients", this.clientService.findAll());
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
+
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/list.jsp").forward(request, response);
+
+    }
 
 }

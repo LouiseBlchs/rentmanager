@@ -13,85 +13,84 @@ import org.springframework.stereotype.Service;
 
 public class ClientService {
 
-	private final ClientDao clientDao;
+    private final ClientDao clientDao;
 
 
-
-	private ClientService(ClientDao clientDao){this.clientDao = clientDao;}
-	
-
-	public long create(Client client) throws ServiceException {
-
-		try{
-			if (client.getPrenom()==null ||client.getNom()==null || client.getNom().length()==0 ||client.getPrenom().length()==0){
-				throw new ServiceException("Le nom et le prénom du client ne peuvent pas être vides.");
-				}
-			client.setNom(client.getNom().toUpperCase());
-			return clientDao.create(client);
-		}
-		catch (DaoException e) {
-
-			throw new ServiceException();
-		}
+    private ClientService(ClientDao clientDao) {
+        this.clientDao = clientDao;
+    }
 
 
-	}
+    public long create(Client client) throws ServiceException {
 
-	public long delete(Client client) throws ServiceException {
+        try {
+            if (client.getPrenom() == null || client.getNom() == null || client.getNom().length() == 0 || client.getPrenom().length() == 0) {
+                throw new ServiceException("Le nom et le prénom du client ne peuvent pas être vides.");
+            }
+            client.setNom(client.getNom().toUpperCase());
+            return clientDao.create(client);
+        } catch (DaoException e) {
 
-
-		try{
-			return clientDao.delete(client);}
-		catch (DaoException e) {
-
-			throw new ServiceException();
-		}
-
-
-	}
-
-	public long edit(Client client) throws ServiceException {
+            throw new ServiceException();
+        }
 
 
-		try{
+    }
 
-			client.setNom(client.getNom().toUpperCase());
-			return clientDao.edit(client);}
-		catch (DaoException e) {
-
-			throw new ServiceException();
-		}
+    public long delete(Client client) throws ServiceException {
 
 
-	}
+        try {
+            return clientDao.delete(client);
+        } catch (DaoException e) {
+
+            throw new ServiceException();
+        }
 
 
+    }
 
-	public Client findById(long id) throws ServiceException {
+    public long edit(Client client) throws ServiceException {
 
-		try{
-			return clientDao.findById(id).get();}
-		catch (DaoException e) {
 
-			throw new ServiceException();
-		}
-	}
+        try {
 
-	public List<Client> findAll() throws ServiceException {
+            client.setNom(client.getNom().toUpperCase());
+            return clientDao.edit(client);
+        } catch (DaoException e) {
 
-		try{
-			return clientDao.findAll();}
-		catch (DaoException e) {
+            throw new ServiceException();
+        }
 
-			throw new ServiceException();
-		}
-	}
 
-	public int CountClient() {
+    }
 
-		return ClientDao.CountClient();
 
-	}
+    public Client findById(long id) throws ServiceException {
+
+        try {
+            return clientDao.findById(id).get();
+        } catch (DaoException e) {
+
+            throw new ServiceException();
+        }
+    }
+
+    public List<Client> findAll() throws ServiceException {
+
+        try {
+            return clientDao.findAll();
+        } catch (DaoException e) {
+
+            throw new ServiceException();
+        }
+    }
+
+    public int CountClient() {
+
+        return ClientDao.CountClient();
+
+    }
 
 
 }

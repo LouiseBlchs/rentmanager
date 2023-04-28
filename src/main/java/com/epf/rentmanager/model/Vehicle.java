@@ -3,19 +3,19 @@ package com.epf.rentmanager.model;
 import java.util.Objects;
 
 public class Vehicle {
-private long vehicle_id;
-private String constructeur;
-private String modele;
-int nb_places;
+    private long vehicle_id;
+    private String constructeur;
+    private String modele;
+    int nb_places;
 
-    public Vehicle(long vehicle_id, String constructeur,String modele, int nb_places) {
+    public Vehicle(long vehicle_id, String constructeur, String modele, int nb_places) {
         this.vehicle_id = vehicle_id;
         this.constructeur = constructeur;
         this.modele = modele;
         this.nb_places = nb_places;
     }
 
-    public Vehicle( String constructeur,String modele, int nb_places) {
+    public Vehicle(String constructeur, String modele, int nb_places) {
         this.constructeur = constructeur;
         this.modele = modele;
         this.nb_places = nb_places;
@@ -42,7 +42,7 @@ int nb_places;
         return modele;
     }
 
-   public void setModele(String modele) {
+    public void setModele(String modele) {
         this.modele = modele;
     }
 
@@ -59,7 +59,7 @@ int nb_places;
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vehicle vehicle = (Vehicle) o;
-        return vehicle_id == vehicle.vehicle_id && nb_places == vehicle.nb_places && Objects.equals(constructeur, vehicle.constructeur) ;
+        return vehicle_id == vehicle.vehicle_id && nb_places == vehicle.nb_places && Objects.equals(constructeur, vehicle.constructeur);
     }
 
     @Override
@@ -72,7 +72,7 @@ int nb_places;
     public String toString() {
         return "Vehicle{" +
                 "vehicle_id=" + vehicle_id +
-                ", constructeur='" + constructeur  + '\'' +
+                ", constructeur='" + constructeur + '\'' +
                 ", nb_places=" + nb_places +
                 '}';
     }

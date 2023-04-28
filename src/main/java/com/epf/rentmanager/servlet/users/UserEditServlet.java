@@ -23,8 +23,7 @@ import java.time.LocalDate;
 public class UserEditServlet extends HttpServlet {
 
 
-
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Autowired
 
@@ -38,33 +37,33 @@ public class UserEditServlet extends HttpServlet {
     }
 
 
-    protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
-try {
-    long id = Long.parseLong(request.getParameter("id"));
-    request.setAttribute("id", id);
-    Client client=this.clientService.findById(id);
-    request.setAttribute("nom1",client.getNom());
-    request.setAttribute("prenom1",client.getPrenom());
-    request.setAttribute("email1",client.getEmail());
-    request.setAttribute("naissance1",client.getNaissance());
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            long id = Long.parseLong(request.getParameter("id"));
+            request.setAttribute("id", id);
+            Client client = this.clientService.findById(id);
+            request.setAttribute("nom1", client.getNom());
+            request.setAttribute("prenom1", client.getPrenom());
+            request.setAttribute("email1", client.getEmail());
+            request.setAttribute("naissance1", client.getNaissance());
 
 
-    this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
 
-}catch (ServiceException ex){
-    ex.printStackTrace();
+        } catch (ServiceException ex) {
+            ex.printStackTrace();
         }
-}
+    }
 
-    protected void doPost(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-            String nom= request.getParameter("last_name");
-            String prenom= request.getParameter("first_name");
-            String email=request.getParameter("email");
-            LocalDate birthDate= LocalDate.parse(request.getParameter("birth_date"));
+            String nom = request.getParameter("last_name");
+            String prenom = request.getParameter("first_name");
+            String email = request.getParameter("email");
+            LocalDate birthDate = LocalDate.parse(request.getParameter("birth_date"));
             Long id = Long.parseLong(request.getParameter("id"));
-            Client client= new Client (id,nom,prenom,email,birthDate);
+            Client client = new Client(id, nom, prenom, email, birthDate);
 
             if (ClientCheckers.MajorCheck(client)) {
                 throw new MajorException("Le client doit être majeur");
@@ -77,18 +76,14 @@ try {
 
             clientService.edit(client);
             response.sendRedirect("/rentmanager/users");
-        } catch (ServiceException e){
+        } catch (ServiceException e) {
             e.printStackTrace();
 
-        }
-
-
-        catch (NameException e) {
+        } catch (NameException e) {
             request.setAttribute("erreur", "Le prénom et le nom du client doivent contenir plus de 3 caractères.");
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
 
-        }
-        catch (MajorException e) {
+        } catch (MajorException e) {
             request.setAttribute("erreur", "Le client doit être majeur.");
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
 

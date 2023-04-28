@@ -24,8 +24,7 @@ import java.time.LocalDate;
 public class UserCreateServlet extends HttpServlet {
 
 
-
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Autowired
 
@@ -37,58 +36,52 @@ public class UserCreateServlet extends HttpServlet {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
-    protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request,response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
 
 
-            String nom= request.getParameter("last_name");
-            String prenom= request.getParameter("first_name");
-            String email=request.getParameter("email");
-            LocalDate birthDate= LocalDate.parse(request.getParameter("birth_date"));
-            Client client= new Client (nom,prenom,email,birthDate);
+            String nom = request.getParameter("last_name");
+            String prenom = request.getParameter("first_name");
+            String email = request.getParameter("email");
+            LocalDate birthDate = LocalDate.parse(request.getParameter("birth_date"));
+            Client client = new Client(nom, prenom, email, birthDate);
 
 
             if (ClientCheckers.MajorCheck(client)) {
-                    throw new MajorException("Le client doit être majeur");
+                throw new MajorException("Le client doit être majeur");
             }
             if (ClientCheckers.NameCheck(client)) {
                 throw new NameException("Le prénom et le nom du client doivent contenir plus de 3 caractères.");
             }
 
-            if (ClientCheckers.MailCheck(client,clientService.findAll())) {
+            if (ClientCheckers.MailCheck(client, clientService.findAll())) {
                 throw new UsedMailException("Un client est déjà enregistré dans la base de données avec cette adresse mail.");
             }
-                clientService.create(client);
-                response.sendRedirect("/rentmanager/users");
-
+            clientService.create(client);
+            response.sendRedirect("/rentmanager/users");
 
 
         } catch (ServiceException e) {
             e.printStackTrace();
-        }
-        catch (UsedMailException e) {
+        } catch (UsedMailException e) {
             request.setAttribute("erreur", "Un client est déjà enregistré dans la base de données avec cette adresse mail.");
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
-        }
-
-        catch (NameException e) {
+        } catch (NameException e) {
             request.setAttribute("erreur", "Le prénom et le nom du client doivent contenir plus de 3 caractères.");
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
 
-        }
-        catch (MajorException e) {
+        } catch (MajorException e) {
             request.setAttribute("erreur", "Le client doit être majeur.");
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
 
         }
-
-
 
 
     }

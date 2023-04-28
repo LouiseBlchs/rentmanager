@@ -23,36 +23,35 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 public class HomeServlet extends HttpServlet {
 
 
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
+    @Autowired
+    VehicleService vehicleService;
+    @Autowired
+    ClientService clientService;
+    @Autowired
+    ReservationService reservationService;
 
-	@Autowired
-	VehicleService vehicleService;
-	@Autowired
-	ClientService clientService;
-	@Autowired
-	ReservationService reservationService;
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
+            request.setAttribute("nbClients", this.clientService.CountClient());
+            request.setAttribute("nbVehicles", this.vehicleService.CountVehicle());
+            request.setAttribute("nbReservations", this.reservationService.CountReservation());
+            request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
 
-			request.setAttribute("nbClients",this.clientService.CountClient());
-			request.setAttribute("nbVehicles",this.vehicleService.CountVehicle());
-			request.setAttribute("nbReservations",this.reservationService.CountReservation());
-			request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
-
-		} catch (ServletException e) {
-			e.printStackTrace();
-		}
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
 
 
-	}
+    }
 
 }

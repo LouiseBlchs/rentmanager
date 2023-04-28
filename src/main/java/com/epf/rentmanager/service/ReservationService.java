@@ -15,8 +15,6 @@ public class ReservationService {
     private final ReservationDao reservationDao;
 
 
-
-
     private ReservationService(ReservationDao reservationDao) {
         this.reservationDao = reservationDao;
     }
@@ -25,9 +23,9 @@ public class ReservationService {
     public long create(Reservation reservation) throws ServiceException {
 
 
-        try{
-            return reservationDao.create(reservation);}
-        catch (DaoException e) {
+        try {
+            return reservationDao.create(reservation);
+        } catch (DaoException e) {
 
             throw new ServiceException();
         }
@@ -36,30 +34,32 @@ public class ReservationService {
     public long edit(Reservation reservation) throws ServiceException {
 
 
-        try{
-            return reservationDao.edit(reservation);}
-        catch (DaoException e) {
+        try {
+            return reservationDao.edit(reservation);
+        } catch (DaoException e) {
 
             throw new ServiceException();
         }
     }
+
     public long delete(Reservation reservation) throws ServiceException {
 
 
-        try{
-            return reservationDao.delete(reservation);}
-        catch (DaoException e) {
+        try {
+            return reservationDao.delete(reservation);
+        } catch (DaoException e) {
 
             throw new ServiceException();
         }
 
 
     }
+
     public List<Reservation> findAll() throws ServiceException {
 
-        try{
-            return reservationDao.findAll();}
-        catch (DaoException e) {
+        try {
+            return reservationDao.findAll();
+        } catch (DaoException e) {
 
             throw new ServiceException();
         }
@@ -68,9 +68,9 @@ public class ReservationService {
 
     public List<Reservation> findResaByVehicleId(long vehicleId) throws ServiceException {
 
-        try{
-            return reservationDao.findResaByVehicleId(vehicleId);}
-        catch (DaoException e) {
+        try {
+            return reservationDao.findResaByVehicleId(vehicleId);
+        } catch (DaoException e) {
 
             throw new ServiceException();
         }
@@ -80,19 +80,20 @@ public class ReservationService {
 
     public Reservation findResaById(long reservationId) throws ServiceException {
 
-        try{
-            return reservationDao.findResaById(reservationId);}
-        catch (DaoException e) {
+        try {
+            return reservationDao.findResaById(reservationId);
+        } catch (DaoException e) {
 
             throw new ServiceException();
         }
 
     }
+
     public List<Reservation> findResaByClientId(long clientId) throws ServiceException {
 
-        try{
-            return reservationDao.findResaByClientId(clientId);}
-        catch (DaoException e) {
+        try {
+            return reservationDao.findResaByClientId(clientId);
+        } catch (DaoException e) {
 
             throw new ServiceException();
         }
@@ -101,14 +102,15 @@ public class ReservationService {
 
     public List<Vehicle> findVehiclesByClientId(long clientId) throws ServiceException {
 
-        try{
-            return reservationDao.findVehiclesByClientId(clientId);}
-        catch (DaoException e) {
+        try {
+            return reservationDao.findVehiclesByClientId(clientId);
+        } catch (DaoException e) {
 
             throw new ServiceException();
         }
 
     }
+
     public int CountReservation() {
 
         return reservationDao.CountReservation();

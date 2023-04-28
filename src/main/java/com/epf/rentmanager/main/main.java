@@ -47,7 +47,7 @@ public class main {
             List<Client> lesclients = ClientService.getInstance().findAll();
             System.out.println(lesclients);*/
 
-      // Reservation res=new Reservation(1,1,1, LocalDate.parse("2022-12-12"),LocalDate.parse("2022-02-01"));
+        // Reservation res=new Reservation(1,1,1, LocalDate.parse("2022-12-12"),LocalDate.parse("2022-02-01"));
 
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);

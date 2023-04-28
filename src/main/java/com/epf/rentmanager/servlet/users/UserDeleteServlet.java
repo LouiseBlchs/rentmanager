@@ -19,8 +19,7 @@ import java.time.LocalDate;
 public class UserDeleteServlet extends HttpServlet {
 
 
-
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Autowired
 
@@ -32,7 +31,8 @@ public class UserDeleteServlet extends HttpServlet {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
-    protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
             long id = Long.parseLong(request.getParameter("id"));
@@ -43,8 +43,6 @@ public class UserDeleteServlet extends HttpServlet {
         }
 
     }
-
-
 
 
 }

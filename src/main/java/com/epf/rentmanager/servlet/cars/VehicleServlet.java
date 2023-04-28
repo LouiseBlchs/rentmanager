@@ -27,19 +27,19 @@ public class VehicleServlet extends HttpServlet {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
 
             request.setAttribute("vehicles", this.vehicleService.findAll());
-        } catch (ServiceException e){
+        } catch (ServiceException e) {
             e.printStackTrace();
         }
 
 
-
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request,response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
 
     }
 

@@ -8,20 +8,17 @@ import org.springframework.stereotype.Component;
 public class VehicleCheckers {
 
 
+    public static boolean CharacteristicsCheck(Vehicle vehicle) {
 
-public static boolean CharacteristicsCheck (Vehicle vehicle){
-
-    return vehicle.getConstructeur()==null || vehicle.getConstructeur().length()==0 || vehicle.getModele()==null|| vehicle.getModele().length()==0 ;
-
-}
-
-    public static boolean SeatsCheck (Vehicle vehicle){
-
-        return vehicle.getNb_places()<2 || vehicle.getNb_places()>9 ;
+        return vehicle.getConstructeur() == null || vehicle.getConstructeur().length() == 0 || vehicle.getModele() == null || vehicle.getModele().length() == 0;
 
     }
 
+    public static boolean SeatsCheck(Vehicle vehicle) {
 
+        return vehicle.getNb_places() < 2 || vehicle.getNb_places() > 9;
+
+    }
 
 
 }

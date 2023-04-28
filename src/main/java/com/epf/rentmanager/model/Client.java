@@ -15,7 +15,7 @@ public class Client implements Optional {
     private LocalDate naissance;
 
 
-    public Client(long client_id, String nom, String prenom,  String email, LocalDate naissance) {
+    public Client(long client_id, String nom, String prenom, String email, LocalDate naissance) {
         this.nom = nom;
         this.prenom = prenom;
         this.client_id = client_id;
@@ -23,7 +23,7 @@ public class Client implements Optional {
         this.naissance = naissance;
     }
 
-    public Client(String nom, String prenom,  String email, LocalDate naissance) {
+    public Client(String nom, String prenom, String email, LocalDate naissance) {
         this.nom = nom;
         this.prenom = prenom;
 
@@ -98,7 +98,7 @@ public class Client implements Optional {
 
     @Override
     public int hashCode() {
-        return Objects.hash(client_id,nom, prenom, email, naissance);
+        return Objects.hash(client_id, nom, prenom, email, naissance);
     }
 
     @Override

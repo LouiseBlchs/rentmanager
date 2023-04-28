@@ -21,7 +21,7 @@ import java.util.List;
 @WebServlet("/users/details")
 public class UserDetailsServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Autowired
     ClientService clientService;
@@ -29,12 +29,14 @@ public class UserDetailsServlet extends HttpServlet {
     VehicleService vehicleService;
     @Autowired
     ReservationService reservationService;
+
     @Override
     public void init() throws ServletException {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
-    protected void doGet(HttpServletRequest   request,   HttpServletResponse response) throws ServletException, IOException       {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
 
@@ -49,11 +51,11 @@ public class UserDetailsServlet extends HttpServlet {
             request.setAttribute("vehicles", vehicleList);
             request.setAttribute("nbVehicles", vehicleList.size());
 
-        } catch (ServiceException e){
+        } catch (ServiceException e) {
             e.printStackTrace();
         }
 
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request,response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/details.jsp").forward(request, response);
     }
 
 
