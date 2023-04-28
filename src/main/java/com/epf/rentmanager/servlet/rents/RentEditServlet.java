@@ -79,7 +79,7 @@ public class RentEditServlet extends HttpServlet {
                 throw new SameUserException("Un utilisateur ne peut pas réserver une voiture plus de 7 jours de suite.");
             }
             reservationService.edit(reservation);
-
+            response.sendRedirect("/rentmanager/rents");
         } catch (ServiceException e){
             e.printStackTrace();
 
@@ -94,7 +94,7 @@ public class RentEditServlet extends HttpServlet {
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/edit.jsp").forward(request, response);
 
         }
-        response.sendRedirect("/rentmanager/rents");
+
     }
 
 
