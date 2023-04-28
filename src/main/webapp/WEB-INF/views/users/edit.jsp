@@ -31,28 +31,28 @@
                                     <label for="last_name" class="col-sm-2 control-label">Nom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" value ="${nom1}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="first_name" class="col-sm-2 control-label">Prenom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" value ="${prenom1}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                                                     <label for="birth_date" class="col-sm-2 control-label">Date de naissance</label>
 
                                                                     <div class="col-sm-10">
-                                                                        <input type="date" class="form-control" id="birth_date" name="birth_date" required>
+                                                                        <input type="date" class="form-control" id="birth_date" name="birth_date" value ="${naissance1}" required>
                                                                     </div>
                                                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">Email</label>
 
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" name="email"  required >
+                                        <input type="email" class="form-control" id="email" name="email"  value ="${email1}" required >
                                     </div>
                                 </div>
                             </div>

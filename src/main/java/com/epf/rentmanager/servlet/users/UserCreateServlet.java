@@ -82,11 +82,11 @@ public class UserCreateServlet extends HttpServlet {
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
 
         }
-            catch (MajorException e) {
-                request.setAttribute("erreur", "Le client doit être majeur.");
-                this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+        catch (MajorException e) {
+            request.setAttribute("erreur", "Le client doit être majeur.");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
 
-            }
+        }
 
 
 

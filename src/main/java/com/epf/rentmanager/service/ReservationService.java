@@ -12,12 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationService {
 
-    private ReservationDao reservationDao;
-    //public static ReservationService instance;
+    private final ReservationDao reservationDao;
 
-    /*private ReservationService() {
-        this.reservationDao = ReservationDao.getInstance();
-    }*/
 
 
 
@@ -115,7 +111,7 @@ public class ReservationService {
     }
     public int CountReservation() {
 
-        return this.reservationDao.CountReservation();
+        return reservationDao.CountReservation();
 
     }
 

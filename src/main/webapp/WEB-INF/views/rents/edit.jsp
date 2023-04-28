@@ -31,7 +31,7 @@
                                     <label for="car" class="col-sm-2 control-label">Voiture</label>
 
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="car" name="car">
+                                        <select class="form-control" id="car" name="car" value="${car1}" required>
                                             <c:forEach items = "${listVehicles}" var="vehicle">
                                             <option value="${vehicle.vehicle_id}">${vehicle.constructeur} ${vehicle.modele}</option>
                                              </c:forEach>
@@ -42,7 +42,7 @@
                                     <label for="client" class="col-sm-2 control-label">Client</label>
 
                                     <div class="col-sm-10">
-                                        <select class="form-control" id="client" name="client">
+                                        <select class="form-control" id="client" name="client" value="${client1}" required>
                                             <c:forEach items = "${listUsers}" var="user">
                                             <option value="${user.client_id}">${user.prenom} ${user.nom}</option>
                                            </c:forEach>
@@ -53,18 +53,16 @@
                                     <label for="begin" class="col-sm-2 control-label">Date de debut</label>
 
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="begin" name="begin" required>
-                                       <!--<input type="text" class="form-control" id="begin" name="begin" required
-                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>-->
+                                        <input type="date" class="form-control" id="begin" name="begin" value ="${begin1}" required>
+
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="end" class="col-sm-2 control-label">Date de fin</label>
 
                                     <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="end" name="end" required>
-                                        <!--<input type="text" class="form-control" id="end" name="end" required
-                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>-->
+                                    <input type="date" class="form-control" id="end" name="end" value ="${end1}" required>
+
                                     </div>
                                 </div>
                             </div>

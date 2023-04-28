@@ -17,8 +17,8 @@ public class ReservationDao {
 
 
 
-	private ClientDao clientDao;
-	private VehicleDao vehicleDao;
+	private final ClientDao clientDao;
+	private final VehicleDao vehicleDao;
 
 	private ReservationDao(ClientDao clientDao,VehicleDao vehicleDao) {
 		this.clientDao=clientDao;

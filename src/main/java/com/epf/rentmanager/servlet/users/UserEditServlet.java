@@ -1,6 +1,10 @@
 package com.epf.rentmanager.servlet.users;
 
+import com.epf.rentmanager.checker.ClientCheckers;
+import com.epf.rentmanager.exception.MajorException;
+import com.epf.rentmanager.exception.NameException;
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.exception.UsedMailException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +42,12 @@ public class UserEditServlet extends HttpServlet {
 try {
     long id = Long.parseLong(request.getParameter("id"));
     request.setAttribute("id", id);
-    request.setAttribute("client", this.clientService.findById(id));
+    Client client=this.clientService.findById(id);
+    request.setAttribute("nom1",client.getNom());
+    request.setAttribute("prenom1",client.getPrenom());
+    request.setAttribute("email1",client.getEmail());
+    request.setAttribute("naissance1",client.getNaissance());
+
 
     this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
 
@@ -56,12 +65,35 @@ try {
             LocalDate birthDate= LocalDate.parse(request.getParameter("birth_date"));
             Long id = Long.parseLong(request.getParameter("id"));
             Client client= new Client (id,nom,prenom,email,birthDate);
+
+            if (ClientCheckers.MajorCheck(client)) {
+                throw new MajorException("Le client doit être majeur");
+
+
+            }
+            if (ClientCheckers.NameCheck(client)) {
+                throw new NameException("Le prénom et le nom du client doivent contenir plus de 3 caractères.");
+            }
+
             clientService.edit(client);
+            response.sendRedirect("/rentmanager/users");
         } catch (ServiceException e){
             e.printStackTrace();
 
         }
-        response.sendRedirect("/rentmanager/users");
+
+
+        catch (NameException e) {
+            request.setAttribute("erreur", "Le prénom et le nom du client doivent contenir plus de 3 caractères.");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
+
+        }
+        catch (MajorException e) {
+            request.setAttribute("erreur", "Le client doit être majeur.");
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/edit.jsp").forward(request, response);
+
+        }
+
 
     }
 

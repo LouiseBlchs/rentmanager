@@ -46,9 +46,14 @@ public class RentEditServlet extends HttpServlet {
        try {
            long id = Long.parseLong(request.getParameter("id"));
            request.setAttribute("id", id);
-           request.setAttribute("reservation", this.reservationService.findResaById(id));
+           Reservation reservation = this.reservationService.findResaById(id);
+           request.setAttribute("reservation", reservation);
         request.setAttribute("listUsers",this.clientService.findAll());
         request.setAttribute("listVehicles",this.vehicleService.findAll());
+           request.setAttribute("client1",reservation.getClient_id());
+           request.setAttribute("car1",reservation.getVehicle_id());
+           request.setAttribute("begin1",reservation.getDebut());
+           request.setAttribute("end1",reservation.getFin());
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/edit.jsp").forward(request,response);}
        catch (ServiceException ex){
            ex.printStackTrace();
@@ -67,7 +72,7 @@ public class RentEditServlet extends HttpServlet {
 
             Reservation reservation= new Reservation(id,client_id,vehicle_id,debut,fin);
 
-           if (ReservationCheckers.AvailableCheck(reservation, reservationService.findResaByVehicleId(id))){
+           if (ReservationCheckers.AvailableCheck(reservation, reservationService.findResaByVehicleId(vehicle_id))){
                throw new AvailableException("Une voiture ne peut pas être réservée deux fois le même jour.");
            }
             if (ReservationCheckers.SameUserCheck(reservation)){
@@ -81,12 +86,12 @@ public class RentEditServlet extends HttpServlet {
         }
         catch (AvailableException e) {
             request.setAttribute("erreur", "Une voiture ne peut pas être réservée deux fois le même jour.");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/edit.jsp").forward(request, response);
 
         }
         catch (SameUserException e) {
             request.setAttribute("erreur", "Un utilisateur ne peut pas réserver une voiture plus de 7 jours de suite.");
-            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/edit.jsp").forward(request, response);
 
         }
         response.sendRedirect("/rentmanager/rents");

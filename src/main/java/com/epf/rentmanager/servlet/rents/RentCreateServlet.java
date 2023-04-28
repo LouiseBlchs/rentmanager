@@ -61,7 +61,7 @@ public class RentCreateServlet extends HttpServlet {
             LocalDate debut= LocalDate.parse(request.getParameter("begin"));
             LocalDate fin= LocalDate.parse(request.getParameter("end"));
             Reservation reservation= new Reservation(client_id,vehicle_id,debut,fin);
-           if (ReservationCheckers.AvailableCheck(reservation, reservationService.findResaByVehicleId(reservation.getVehicle_id()))){
+           if (ReservationCheckers.AvailableCheck(reservation, reservationService.findResaByVehicleId(vehicle_id))){
                throw new AvailableException("Une voiture ne peut pas être réservée deux fois le même jour.");
            }
             if (ReservationCheckers.SameUserCheck(reservation)){

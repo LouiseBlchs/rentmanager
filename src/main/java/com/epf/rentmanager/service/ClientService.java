@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 public class ClientService {
 
-	private ClientDao clientDao;
-	//public static ClientService instance;
+	private final ClientDao clientDao;
+
 
 
 	private ClientService(ClientDao clientDao){this.clientDao = clientDao;}
@@ -89,7 +89,7 @@ public class ClientService {
 
 	public int CountClient() {
 
-		return this.clientDao.CountClient();
+		return ClientDao.CountClient();
 
 	}
 

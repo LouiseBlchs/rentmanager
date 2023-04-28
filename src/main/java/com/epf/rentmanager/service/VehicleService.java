@@ -81,7 +81,7 @@ public class VehicleService {
 
 	public int CountVehicle() {
 
-		return this.vehicleDao.CountVehicle();
+		return vehicleDao.CountVehicle();
 
 	}
 	

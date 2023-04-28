@@ -38,21 +38,21 @@
 									<!-- vous devez passer par les methodes getParameter de l'objet request, est sp�cifiant la valeur -->
 									<!-- de l'attribut "name" de l'input -->
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="manufacturer" name="manufacturer" required>
+                                        <input type="text" class="form-control" id="manufacturer" name="manufacturer" value="${manufacturer1}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="modele" class="col-sm-2 control-label">Modele</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="modele" name="modele" required>
+                                        <input type="text" class="form-control" id="modele" name="modele" value="${model1}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="seats" class="col-sm-2 control-label">Nombre de places</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="seats" name="seats" required>
+                                        <input type="text" class="form-control" id="seats" name="seats" value="${places1}" required>
                                     </div>
                                 </div>
 

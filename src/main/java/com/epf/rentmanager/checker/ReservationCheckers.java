@@ -16,7 +16,7 @@ public class ReservationCheckers {
 
     public static boolean AvailableCheck(Reservation reservation, List<Reservation> allReservations) {
         for (Reservation allReservation : allReservations) {
-            if ((reservation.getFin().isAfter(allReservation.getDebut())) || (allReservation.getFin().isAfter(reservation.getDebut()))) {
+            if ((reservation.getFin().isAfter(allReservation.getDebut()) && reservation.getDebut().isBefore(allReservation.getFin())) || (allReservation.getFin().isAfter(reservation.getDebut()) && allReservation.getDebut().isBefore(reservation.getFin()))) {
                 return true;
             }
         }

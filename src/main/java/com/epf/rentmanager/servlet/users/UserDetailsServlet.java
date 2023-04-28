@@ -38,10 +38,10 @@ public class UserDetailsServlet extends HttpServlet {
 
         try {
 
-            long Myid = Long.parseLong(request.getParameter("id"));
-            Client client = clientService.findById(Myid);
-            List<Reservation> resaList = reservationService.findResaByClientId(Myid);
-            List<Vehicle> vehicleList = reservationService.findVehiclesByClientId(Myid);
+            long id = Long.parseLong(request.getParameter("id"));
+            Client client = clientService.findById(id);
+            List<Reservation> resaList = reservationService.findResaByClientId(id);
+            List<Vehicle> vehicleList = reservationService.findVehiclesByClientId(id);
 
             request.setAttribute("client", client);
             request.setAttribute("reservations", resaList);

@@ -20,8 +20,8 @@
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
-                            <h3 class="profile-username text-center">${client.email}</h3>
-
+                            <h3 class="profile-username text-center">Utilisateur ${client.client_id}</h3>
+                            <p>email : ${client.email}        date de naissance : ${client.naissance}</p>
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
                                     <b>Reservation(s)</b> <a class="pull-right">${nbReservations}</a>
